@@ -1,15 +1,18 @@
-// import { actionCreators } from '../state'
-// import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useActions } from '../hooks/useActions'
+// similar to MapStateToProps
+import { useSelector } from 'react-redux'
+
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState('')
-  // const dispatch = useDispatch()
   const { searchRepositories } = useActions()
+  const { data, error, loading } = useSelector(
+    (state: any) => state.repositories
+  )
+  console.log(data, error, loading)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // dispatch(actionCreators.searchRepositories(term))
     searchRepositories(term)
   }
   return (
