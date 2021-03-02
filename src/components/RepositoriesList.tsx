@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useActions } from '../hooks/useActions'
 // similar to MapStateToProps
 import { useTypedSelector } from '../hooks/useTypedSelector'
-import { RootState } from '../state'
 
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState('')
@@ -16,6 +15,7 @@ const RepositoriesList: React.FC = () => {
     e.preventDefault()
     searchRepositories(term)
   }
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -26,6 +26,13 @@ const RepositoriesList: React.FC = () => {
         />
         <button>Search</button>
       </form>
+      {error && <h3>{error}</h3>}
+      {loading && <h3>Loading...</h3>}
+      {!error &&
+        !loading &&
+        data.map((name) => {
+          return <div key={name}>{name}</div>
+        })}
     </div>
   )
 }
